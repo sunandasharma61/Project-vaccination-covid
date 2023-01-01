@@ -14,9 +14,9 @@ const createUser = async function (req, res) {
 
         let data = req.body
 
-        let { fname, lname, phone, password, aadharNo, age, pincode } = data
-
         if (!isValidBody(data)) return res.status(400).send({ status: false, message: "Insert Data : BAD REQUEST" });
+        
+        let { fname, lname, phone, password, aadharNo, age, pincode } = data
 
         if (!fname) return res.status(400).send({ status: false, message: "fname is requires" })
         if (!isValidName(fname.trim())) return res.status(400).send({ status: false, message: `${fname} is not a valide first name.` })
