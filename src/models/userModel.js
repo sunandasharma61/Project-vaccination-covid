@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const userSchema = new mongoose.Schema(
     {
@@ -38,9 +39,30 @@ const userSchema = new mongoose.Schema(
             type: Number,
             required: true,
 
+        }, status: {
+            firstDose: {
+                type: Boolean,
+                default: false
+            },
+            secondDose: {
+                type: Boolean,
+                default: false
+            }
         },
+        center: {
+            type: ObjectId,
+            ref: "Center",
+            trim: true,
 
-
+        },
+        registeredSlot: {
+            date: {
+                type: Date
+            },
+            time: {
+                type: String
+            }
+        }
 
     },
     { timestamps: true }
