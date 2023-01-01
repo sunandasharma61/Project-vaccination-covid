@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        AadharNo: {
+        aadharNo: {
             type: Number,
             required: true,
         },
