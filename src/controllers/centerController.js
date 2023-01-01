@@ -35,7 +35,7 @@ const createCenter = async function (req, res) {
         { slot: 1 }, { slot: 1.30 }, { slot: 2 }, { slot: 2.30 }, { slot: 3 }, { slot: 3.30 }, { slot: 4 }, { slot: 4.30 }]
 
         data.avalableSlots = avalableSlots
-        
+
         const saveUserData = await centerModel.create(data);
 
         res.status(201).send({ status: true, message: "Success", data: saveUserData });
@@ -47,4 +47,34 @@ const createCenter = async function (req, res) {
 
 
 
-module.exports = { createCenter }
+
+const getCenter = async function (req, res) {
+
+    try {
+        const { pincode, ...other } = req.query
+
+        if(isValidBody(other))return res.status(400).send({ status: false, message: "plese provide valid qury params" })
+
+        const obj = {}
+
+        if (pincode) {
+            if (!isValidpincode(pincode)) return res.status(400).send({ status: false, message: "Pinecode is not valide" })
+            obj.pincode = pincode
+        }
+
+        const findCenter = await centerModel.find(obj)
+
+        if(findCenter.length == 0) return res.status(400).send({ status: false, message: "Center not found for this pincode" })
+
+        res.status(201).send({ status: true, message: "Success", data: findCenter });
+
+
+    } catch (error) {
+        res.status(500).send({ status: false, message: error.message })
+    }
+
+}
+
+
+
+module.exports = { createCenter, getCenter }

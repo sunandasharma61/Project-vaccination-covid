@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema(
         aadharNo: {
             type: Number,
             required: true,
+            unique: true
         },
         phone: {
             type: String,
@@ -56,13 +57,19 @@ const userSchema = new mongoose.Schema(
 
         },
         registeredSlot: {
+            
+            registered: {
+                type: Boolean,
+                default: false
+            },
             date: {
                 type: Date
             },
             time: {
-                type: String
+                type: Number
             }
-        }
+        },
+
 
     },
     { timestamps: true }
